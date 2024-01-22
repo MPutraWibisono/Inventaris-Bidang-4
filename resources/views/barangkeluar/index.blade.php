@@ -6,6 +6,6 @@
     <title>barangkeluar</title>
 </head>
 <body>
-    tes 123
+    Barang keluar
 </body>
 </html>
