@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('nama_pengambil');
             $table->string('nama_barang');
             $table->bigInteger('jumlah_ambil');
-            $table->date('tangggal_keluar');
+            $table->date('tanggal_keluar');
             $table->timestamps();
         });
     }
