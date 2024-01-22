@@ -21,4 +21,7 @@ Route::get('/', function () {
 });
 
 Route::get('/barangkeluar', [BarangKeluarController::class,'index'])->name('barangkeluar.index');
+
 Route::get('/barangmasuk', [BarangMasukController::class,'index'])->name('barangmasuk.index');
+Route::get('/barangmasuk/input', [BarangMasukController::class,'input'])->name('barangmasuk.input');
+
