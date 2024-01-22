@@ -16,7 +16,7 @@ class BarangMasukController extends Controller
 
     public function input ()
     {
-        return view('barangkeluar.input');
+        return view('barangmasuk.input');
     }
 
     public function store (Request $request)
