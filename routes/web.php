@@ -26,3 +26,4 @@ Route::get('/barangmasuk', [BarangMasukController::class,'index'])->name('barang
 Route::get('/barangmasuk/input', [BarangMasukController::class,'input'])->name('barangmasuk.input');
 Route::get('/barangmasuk/store', [BarangMasukController::class,'store'])->name('barangmasuk.store');
 
+Auth::routes();

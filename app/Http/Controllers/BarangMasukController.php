@@ -27,5 +27,6 @@ class BarangMasukController extends Controller
             'stok'=> $request->stok,
             'tanggal_masuk'=> $request->tanggal_masuk,
         ]);
+        return redirect()->route('barangmasuk.index');
     }
 }
