@@ -14,14 +14,14 @@ class BarangMasukController extends Controller
         return view('barangmasuk.index', ['barangmasuk' => $barang_masuk]);
     }
 
-    public function input ()
+    public function create ()
     {
-        return view('barangmasuk.input');
+        return view('barangmasuk.create');
     }
 
     public function store (Request $request)
     {
-        $barang_masuk = BarangMasuk::input([
+        $barang_masuk = BarangMasuk::create([
             'nama_barang' => $request->nama_barang,
             'harga'=> $request->harga,
             'stok'=> $request->stok,
