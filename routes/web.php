@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BarangKeluarController;
-use App\Models\BarangKeluar;
+use App\Http\Controllers\BarangMasukController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,3 +21,4 @@ Route::get('/', function () {
 });
 
 Route::get('/barangkeluar', [BarangKeluarController::class,'index'])->name('barangkeluar.index');
+Route::get('/barangmasuk', [BarangMasukController::class,'index'])->name('barangmasuk.index');
