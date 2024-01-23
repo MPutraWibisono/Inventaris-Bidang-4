@@ -29,4 +29,17 @@ class BarangMasukController extends Controller
         ]);
         return redirect()->route('barangmasuk.index');
     }
+
+    public function destroy ($id)
+    {
+        $barang_masuk = BarangMasuk::find($id);
+        $barang_masuk->delete();
+        return redirect()->route('barangmasuk.index')->with('success');
+    }
+
+    public function show ($id)
+    {
+        $barang_masuk = BarangMasuk::find($id);
+        return view('barangmasuk.show', ['barangmasuk' => $barang_masuk]);
+    }
 }
