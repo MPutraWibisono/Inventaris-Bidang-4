@@ -418,14 +418,14 @@
                         </div>
                     </div>
 
-                    <form action="{{ route('barangmasuk.export') }}" method="get">
-                        @csrf
-                        <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                            <h1 class="h3 mb-0 text-gray-800"></h1>
+                    @csrf
+                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                        <h1 class="h3 mb-0 text-gray-800"></h1>
+                        <form action="{{ route('barangmasuk.export') }}" method="get">
                             <input type="date" name="tanggal_masuk" class="form-control">
                             <input type="submit" class="btn btn-info btn-icon-split btn-lg" value="Export">
-                        </div>
-                    </form>  
+                        </form>
+                    </div>
 
                 </div>
                 <!-- /.container-fluid -->

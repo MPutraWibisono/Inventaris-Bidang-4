@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\BarangMasukExport;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use App\Models\BarangMasuk;
+use Maatwebsite\Excel\Facades\Excel;
 
 class BarangMasukController extends Controller
 {
@@ -12,6 +14,11 @@ class BarangMasukController extends Controller
     {
         $barang_masuk = BarangMasuk::all();
         return view('barangmasuk.index', ['barangmasuk' => $barang_masuk]);
+    }
+
+    public function show($id)
+    {
+
     }
 
     public function create ()
@@ -51,5 +58,12 @@ class BarangMasukController extends Controller
         $barang_masuk = BarangMasuk::find($id);
         $barang_masuk->delete();
         return redirect()->route('barangmasuk.index')->with('success');
+    }
+
+    public function export(Request $request)
+    {
+        $tanggal_masuk = $request->tanggal_masuk;
+        $barang_export = BarangMasuk::where('tanggal_masuk', $tanggal_masuk)->get();
+        return Excel::download(new BarangMasukExport($tanggal_masuk, $barang_export),'Data-Barang-Masuk.xlsx');
     }
 }
