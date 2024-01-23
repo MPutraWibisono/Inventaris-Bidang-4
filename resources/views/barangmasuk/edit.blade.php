@@ -10,12 +10,13 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <form action="{{ route('barangmasuk.store') }}" method="post" enctype="multipart/form-data">
+                <form action="{{ route('barangmasuk.update', $barangmasuk->id) }}" method="post" enctype="multipart/form-data">
                     @csrf
+                    @method('PUT')
                     <div class="mb-3">
                         <label for="nama_barang" class="form-label">Nama Barang</label>
                         <input type="text" name="nama_barang" class="form-control @error('nama_barang') is-invalid @enderror" id="nama_barang"
-                        placeholder="Masukkan Nama Barang">
+                        placeholder="Masukkan Nama Barang" value="{{ $barangmasuk->nama_barang }}">
                         @error('nama_barang')
                         <p class="form-text" style="color: red;">{{$message}}</p>
                         @enderror
@@ -23,7 +24,7 @@
                     <div class="mb-3">
                         <label for="harga" class="form-label">Harga</label>
                         <input type="number" name="harga" class="form-control @error('harga') is-invalid @enderror" id="harga"
-                        placeholder="Masukkan Harga Barang">
+                        placeholder="Masukkan Harga Barang" value="{{ $barangmasuk->harga}}">
                         @error('harga')
                         <p class="form-text" style="color: red;">{{$message}}</p>
                         @enderror
@@ -31,7 +32,7 @@
                     <div class="mb-3">
                         <label for="stok" class="form-label">Stok</label>
                         <input type="number" name="stok" class="form-control @error('stok') is-invalid @enderror" id="stok"
-                        placeholder="Masukkan Banyak Stok Barang">
+                        placeholder="Masukkan Banyak Stok Barang" value="{{ $barangmasuk->stok }}">
                         @error('stok')
                         <p class="form-text" style="color: red;">{{$message}}</p>
                         @enderror
@@ -39,7 +40,7 @@
                     <div class="mb-3">
                         <label for="tanggal_masuk" class="form-label">Tanggal Barang Masuk</label>
                         <input type="date" name="tanggal_masuk" class="form-control @error('tanggal_masuk') is-invalid @enderror" id="tanggal_masuk"
-                        placeholder="Masukkan Tanggal Barang Masuk">
+                        placeholder="Masukkan Tanggal Barang Masuk" value="{{ $barangmasuk->tanggal_masuk }}">
                         @error('tanggal_masuk')
                         <p class="form-text" style="color: red;">{{$message}}</p>
                         @enderror

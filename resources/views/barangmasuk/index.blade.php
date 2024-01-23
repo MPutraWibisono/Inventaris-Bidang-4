@@ -403,7 +403,7 @@
                                                 method="post" onsubmit="return confirm('Are you sure?')">
                                             @csrf
                                             @method('DELETE')
-                                                <td><a href="#"
+                                                <td><a href="{{ route('barangmasuk.edit', $barang->id) }}"
                                                 class="btn btn-warning">Edit</a>
                                                     </td>
                                                 <td><input type="submit" value="Delete" class="btn btn-danger"></td>
