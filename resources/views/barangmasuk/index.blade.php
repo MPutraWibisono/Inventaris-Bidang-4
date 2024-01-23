@@ -394,21 +394,21 @@
                                     </tfoot>
                                     <tbody>
                                         @foreach ($barangmasuk as $barang)
-                                            {{-- <form action="{{ route('barang.destroy', $barang->id) }}"
-                                                method="post" onsubmit="return confirm('Are you sure?')"> --}}
+                                        <tr>
+                                            <td>{{ $barang->nama_barang }}</td>
+                                            <td>{{ $barang->harga }}</td>
+                                            <td>{{ $barang->stok }}</td>
+                                            <td>{{ $barang->tanggal_masuk }}</td>
+                                            <form action="{{ route('barangmasuk.destroy', $barang->id) }}"
+                                                method="post" onsubmit="return confirm('Are you sure?')">
                                             @csrf
                                             @method('DELETE')
-                                            <tr>
-                                                <td>{{ $barang->nama_barang }}</td>
-                                                <td>{{ $barang->harga }}</td>
-                                                <td>{{ $barang->stok }}</td>
-                                                <td>{{ $barang->tanggal_masuk }}</td>
                                                 <td><a href="#"
-                                                        class="btn btn-warning">Edit</a>
-                                                </td>
+                                                class="btn btn-warning">Edit</a>
+                                                    </td>
                                                 <td><input type="submit" value="Delete" class="btn btn-danger"></td>
                                             </tr>
-                                            {{-- </form> --}}
+                                            </form>
                                         @endforeach
                                     </tbody>
                                 </table>
