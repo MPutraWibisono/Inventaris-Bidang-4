@@ -22,4 +22,4 @@ Route::get('/', function () {
 
 Route::resource('/barangkeluar', BarangKeluarController::class);
 Route::resource('/barangmasuk', BarangMasukController::class);
-Route::get('/barangmasuk/export', [BarangMasukController::class, 'export'])->name('barangmasuk.export');
+Route::post('/barangmasuk/export', [BarangMasukController::class, 'export'])->name('barangmasuk.export');
