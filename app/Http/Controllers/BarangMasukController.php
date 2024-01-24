@@ -63,7 +63,12 @@ class BarangMasukController extends Controller
     public function export(Request $request)
     {
         $tanggal_masuk = $request->tanggal_masuk;
-        $barang_export = BarangMasuk::where('tanggal_masuk', $tanggal_masuk)->get();
-        return Excel::download(new BarangMasukExport($tanggal_masuk, $barang_export),'Data-Barang-Masuk.xlsx');
+        if(isset($tanggal_masuk)){
+            $barang_export = BarangMasuk::where('tanggal_masuk', $tanggal_masuk)->get();
+            return Excel::download(new BarangMasukExport($tanggal_masuk, $barang_export),'Data-Barang-Masuk.xlsx');
+        } else{
+            $barang_export = BarangMasuk::all();
+            return Excel::download(new BarangMasukExport($tanggal_masuk, $barang_export),'Data-Barang-Masuk.xlsx');
+        }
     }
 }
