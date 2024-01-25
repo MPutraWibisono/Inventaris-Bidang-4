@@ -8,7 +8,8 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Tambah Barang Masuk</title>
+    <title>Inventaris Bidang 4</title>
+    <link rel="icon" type="image/x-icon" href="../img/logo diskominfo.png">
 
     <!-- Custom fonts for this template -->
     <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -45,7 +46,7 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item">
-                <a class="nav-link" href="index.html">
+                <a class="nav-link" href="{{ route('home') }}">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
             </li>
@@ -302,7 +303,7 @@
                     <div class="card shadow mb-4">
                         <div class="card-body">
                             <div class="table-responsive">
-                                <form action="{{ route('barangmasuk.store') }}" method="post"
+                                <form id="tambahbarang" action="{{ route('barangmasuk.store') }}" method="post"
                                     enctype="multipart/form-data">
                                     @csrf
                                     <div class="mb-3">
@@ -347,15 +348,14 @@
                                             <span class="icon text-white-50">
                                                 <i class="fas fa-arrow-left"></i>
                                             </span>
-                                            <span class="text">Back</span>
+                                            <span class="text">Kembali</span>
                                         </a>
-                                        <span class="btn btn-success btn-icon-split">
+                                        <a id="simpanbarang" class="btn btn-success btn-icon-split">
                                             <span class="icon text-white-50">
-                                                <i class="fas fa-check" style="margin: 5px"></i>
+                                                <i class="fas fa-check"></i>
                                             </span>
-                                            <input type="submit" class="btn btn-success btn-icon-split"
-                                                value="Simpan" style="padding-left: 20px; padding-right: 20px;">
-                                        </span>
+                                            <span class="text">Simpan</span>
+                                        </a>
                                     </div>
 
                                 </form>
@@ -414,6 +414,12 @@
             </div>
         </div>
     </div>
+
+    <script>
+        document.getElementById('simpanbarang').addEventListener('click', function () {
+            document.getElementById('tambahbarang').submit();
+        });
+    </script>
 
     <!-- Bootstrap core JavaScript-->
     <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>

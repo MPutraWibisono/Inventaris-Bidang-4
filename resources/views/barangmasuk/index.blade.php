@@ -8,7 +8,8 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Barang Masuk</title>
+    <title>Inventaris Bidang 4</title>
+    <link rel="icon" type="image/x-icon" href="/img/logo diskominfo.png">
 
     <!-- Custom fonts for this template -->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -45,7 +46,7 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item">
-                <a class="nav-link" href="index.html">
+                <a class="nav-link" href="{{ route('home') }}">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
             </li>
@@ -348,21 +349,20 @@
                         </div>
                     </div>
 
-                    <form action="{{ route('barangmasuk.export') }}" method="post">
+                    <form id="barangexport" action="{{ route('barangmasuk.export') }}" method="post">
                         @csrf
-                        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                        <div class="d-sm-flex align-items-center justify-content-between mb-4 shadow">
                             <h1 class="h3 mb-0 text-gray-800"></h1>
                             <input type="date" name="tanggal_masuk" class="form-control">
                         </div>
                         <div class="d-sm-flex align-items-center justify-content-between mb-4">
                             <h1 class="h3 mb-0 text-gray-800"></h1>
-                            <span class="btn btn-info btn-icon-split">
+                            <a id="exportclick" class="btn btn-info btn-icon-split">
                                 <span class="icon text-white-50">
-                                    <i class="fas fa-download" style="margin: 5px"></i>
+                                    <i class="fas fa-download"></i>
                                 </span>
-                                <input type="submit" class="btn btn-info btn-icon-split btn-lg" value="Export"
-                                    style="padding-left: 20px; padding-right: 20px;">
-                            </span>
+                                <span class="text">Download Data</span>
+                            </a>
                         </div>
                     </form>
 
@@ -417,6 +417,12 @@
             </div>
         </div>
     </div>
+
+    <script>
+        document.getElementById('exportclick').addEventListener('click', function () {
+            document.getElementById('barangexport').submit();
+        });
+    </script>
 
     <!-- Bootstrap core JavaScript-->
     <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>

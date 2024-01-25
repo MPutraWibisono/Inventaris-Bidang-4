@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\BarangMasuk;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -23,6 +24,14 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $total = BarangMasuk::all();
+        $barangtotal = $total->count();
+
+        $start_date = now()->subDays(30);
+        $end_date = now();
+        $barang30hari = BarangMasuk::whereBetween('created_at', [$start_date, $end_date])->get();
+        $total30hari = $barang30hari->count();
+
+        return view('home', compact('total30hari'), compact('barangtotal'));
     }
 }
