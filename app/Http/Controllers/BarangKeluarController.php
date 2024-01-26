@@ -67,6 +67,7 @@ class BarangKeluarController extends Controller
             'jumlah_ambil' => $request->jumlah_ambil,
             'tanggal_keluar' => $request->tanggal_keluar,
         ]);
+        
         return redirect()->route('barangkeluar.index');
     }
 }
