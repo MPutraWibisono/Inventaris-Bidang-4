@@ -19,11 +19,11 @@ use GuzzleHttp\Middleware;
 |
 */
 
+Route::get('/', function () {
+    return view('welcome');
+});
 
 Route::middleware('auth')->group(function () {
-    Route::get('/', function () {
-        return view('home');
-    });
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
     Route::resource('/barangkeluar', BarangKeluarController::class);
     Route::group(['middleware' => ['role:admin']], function () {
