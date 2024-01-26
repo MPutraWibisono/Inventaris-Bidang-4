@@ -11,14 +11,14 @@ class BarangKeluarController extends Controller
 {
     public function index()
     {   
-        $barang_masuk = BarangMasuk::all();
-        $barang_keluar = BarangKeluar::all();
+        $barang_masuk = BarangMasuk::all(); 
+        $barang_keluar = BarangKeluar::with('barangmasuk')->get();
         return view('barangkeluar.index', ['barangkeluar' => $barang_keluar, 'barangmasuk' => $barang_masuk]);
     }
 
     public function create()
     {
-        $barang_masuk = BarangMasuk::all();
+        $barang_masuk = BarangMasuk::all(); 
         return view('barangkeluar.create', ['barangmasuk' => $barang_masuk]);
     }
 
@@ -67,7 +67,7 @@ class BarangKeluarController extends Controller
             'jumlah_ambil' => $request->jumlah_ambil,
             'tanggal_keluar' => $request->tanggal_keluar,
         ]);
-        
+
         return redirect()->route('barangkeluar.index');
     }
 }

@@ -552,7 +552,7 @@
                                             @method('DELETE')
                                             <tr>
                                                 <td>{{ $barang->nama_pengambil }}</td>
-                                                <td>{{ $barang->barang_id }}</td>
+                                                <td>{{ $barang->barangmasuk->nama_barang }}</td>
                                                 <td>{{ $barang->jumlah_ambil }}</td>
                                                 <td>{{ $barang->tanggal_keluar }}</td>
                                             </tr>

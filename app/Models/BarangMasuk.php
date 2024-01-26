@@ -12,6 +12,6 @@ class BarangMasuk extends Model
     protected $guarded = [];
 
     public function barang_masuk(){
-        return $this->hasMany(BarangMasuk::class);
+        return $this->hasMany(BarangKeluar::class);
     }
 }

@@ -370,17 +370,16 @@
                                             </tr>
                                         </tfoot>
                                         <tbody>
-                                            @foreach ($barangkeluar as $barang)
-                                                @csrf
-                                                @method('DELETE')
+                                            @foreach ($barangkeluar as $key => $barang)
                                                 <tr>
                                                     <td>{{ $barang->nama_pengambil }}</td>
-                                                    <td>{{ $barang->barang_id }}</td>
+                                                    <td>{{ $barang->barangmasuk->nama_barang }}</td>
                                                     <td>{{ $barang->jumlah_ambil }}</td>
                                                     <td>{{ $barang->tanggal_keluar }}</td>
                                                 </tr>
                                             @endforeach
                                         </tbody>
+
                                     </table>
                                 </div>
                             @endif
