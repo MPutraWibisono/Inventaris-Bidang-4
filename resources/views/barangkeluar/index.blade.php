@@ -33,9 +33,10 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="#">
                 <div class="sidebar-brand-icon rotate-n-15">
-                    <img class="img-profile rounded-circle" src="img/logo diskominfo.png" alt="logo diskominfo" style="max-width:6.229167vh">
+                    <img class="img-profile rounded-circle" src="img/logo diskominfo.png" alt="logo diskominfo"
+                        style="max-width:6.229167vh">
                 </div>
                 <div class="sidebar-brand-text mx-3">Inventaris Bidang 4</div>
             </a>
@@ -44,13 +45,16 @@
             <hr class="sidebar-divider my-0">
 
             <!-- Nav Item - Dashboard -->
-            <li class="nav-item">
-                <a class="nav-link" href="{{ route('home') }}">
-                    <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>Dashboard</span></a>
-            </li>
+            <!-- Nav Item - Dashboard -->
+            @if (Auth::user()->hasRole('admin'))
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('home') }}">
+                        <i class="fas fa-fw fa-tachometer-alt"></i>
+                        <span>Dashboard</span></a>
+                </li>
+            @endif
 
-            @if (Auth::user()->email == 'admin@admin.com')
+            @if (Auth::user()->hasRole('admin'))
                 <!-- Nav Item - Tables -->
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('barangmasuk.index') }}">
@@ -64,6 +68,15 @@
                     <i class="fas fa-fw fa-chart-area"></i>
                     <span>Barang Keluar</span></a>
             </li>
+
+            @if (Auth::user()->hasRole('admin'))
+                <!-- Nav Item - Tables -->
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('daftaruser.index') }}">
+                        <i class="fas fa-fw fa-address-book"></i>
+                        <span>Daftar User</span></a>
+                </li>
+            @endif
 
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
@@ -319,10 +332,6 @@
                                     </thead>
                                     <tfoot>
                                         <tr>
-                                            <th>Nama Pengambil</th>
-                                            <th>Nama Barang</th>
-                                            <th>Jumlah Ambil</th>
-                                            <th>Tanggal Keluar</th>
                                         </tr>
                                     </tfoot>
                                     <tbody>

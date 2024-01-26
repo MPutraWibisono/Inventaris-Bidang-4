@@ -9,19 +9,19 @@
     <meta name="author" content="">
 
     <title>Inventaris Bidang 4</title>
-    <link rel="icon" type="image/x-icon" href="/img/logo diskominfo.png">
+    <link rel="icon" type="image/x-icon" href="../img/logo diskominfo.png">
 
     <!-- Custom fonts for this template -->
-    <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link href="{{ asset('/css/sb-admin-2.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('../css/sb-admin-2.min.css') }}" rel="stylesheet">
 
     <!-- Custom styles for this page -->
-    <link href="{{ asset('/vendor/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('../vendor/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
 </head>
 
 <body id="page-top">
@@ -35,7 +35,7 @@
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="#">
                 <div class="sidebar-brand-icon rotate-n-15">
-                    <img class="img-profile rounded-circle" src="/img/logo diskominfo.png" alt="logo diskominfo"
+                    <img class="img-profile rounded-circle" src="../img/logo diskominfo.png" alt="logo diskominfo"
                         style="max-width:6.229167vh">
                 </div>
                 <div class="sidebar-brand-text mx-3">Inventaris Bidang 4</div>
@@ -55,7 +55,7 @@
 
             @if (Auth::user()->hasRole('admin'))
                 <!-- Nav Item - Tables -->
-                <li class="nav-item active">
+                <li class="nav-item">
                     <a class="nav-link" href="{{ route('barangmasuk.index') }}">
                         <i class="fas fa-fw fa-table"></i>
                         <span>Barang Masuk</span></a>
@@ -70,7 +70,7 @@
 
             @if (Auth::user()->hasRole('admin'))
                 <!-- Nav Item - Tables -->
-                <li class="nav-item">
+                <li class="nav-item active">
                     <a class="nav-link" href="{{ route('daftaruser.index') }}">
                         <i class="fas fa-fw fa-address-book"></i>
                         <span>Daftar User</span></a>
@@ -307,57 +307,66 @@
 
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Edit Data Barang</h1>
+                        <h1 class="h3 mb-0 text-gray-800">Registrasi User</h1>
                     </div>
 
 
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-body">
-                            <form id="editbarang" action="{{ route('barangmasuk.update', $barangmasuk->id) }}"
-                                method="post" enctype="multipart/form-data">
+                            <form id="formregis" action="{{ route('daftaruser.store') }}" method="POST"
+                                enctype="multipart/form-data">
                                 @csrf
-                                @method('PUT')
                                 <div class="mb-3">
-                                    <label for="nama_barang" class="form-label">Nama Barang</label>
-                                    <input type="text" name="nama_barang"
-                                        class="form-control @error('nama_barang') is-invalid @enderror"
-                                        id="nama_barang" placeholder="Masukkan Nama Barang"
-                                        value="{{ $barangmasuk->nama_barang }}">
-                                    @error('nama_barang')
-                                        <p class="form-text" style="color: red;">{{ $message }}</p>
+                                    <label for="name" class="form-label">{{ __('Name') }}</label>
+
+                                    <input id="name" type="text"
+                                        class="form-control @error('name') is-invalid @enderror" name="name"
+                                        required autocomplete="name" placeholder="Masukkan Nama">
+
+                                    @error('name')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
                                     @enderror
                                 </div>
                                 <div class="mb-3">
-                                    <label for="harga" class="form-label">Harga</label>
-                                    <input type="number" name="harga"
-                                        class="form-control @error('harga') is-invalid @enderror" id="harga"
-                                        placeholder="Masukkan Harga Barang" value="{{ $barangmasuk->harga }}">
-                                    @error('harga')
-                                        <p class="form-text" style="color: red;">{{ $message }}</p>
+                                    <label for="email" class="form-label">{{ __('Email Address') }}</label>
+
+                                    <input id="email" type="email"
+                                        class="form-control @error('email') is-invalid @enderror" name="email"
+                                        value="" required placeholder="Masukkan Email" autocomplete="off">
+
+                                    @error('email')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
                                     @enderror
                                 </div>
                                 <div class="mb-3">
-                                    <label for="stok" class="form-label">Stok</label>
-                                    <input type="number" name="stok"
-                                        class="form-control @error('stok') is-invalid @enderror" id="stok"
-                                        placeholder="Masukkan Banyak Stok Barang" value="{{ $barangmasuk->stok }}">
-                                    @error('stok')
-                                        <p class="form-text" style="color: red;">{{ $message }}</p>
+                                    <label for="password" class="form-label">{{ __('Password') }}</label>
+
+                                    <input id="password" type="password"
+                                        class="form-control @error('password') is-invalid @enderror" name="password"
+                                        required placeholder="Masukkan Password">
+
+                                    @error('password')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
                                     @enderror
                                 </div>
+
                                 <div class="mb-3">
-                                    <label for="tanggal_masuk" class="form-label">Tanggal Barang Masuk</label>
-                                    <input type="date" name="tanggal_masuk"
-                                        class="form-control @error('tanggal_masuk') is-invalid @enderror"
-                                        id="tanggal_masuk" placeholder="Masukkan Tanggal Barang Masuk"
-                                        value="{{ $barangmasuk->tanggal_masuk }}">
-                                    @error('tanggal_masuk')
-                                        <p class="form-text" style="color: red;">{{ $message }}</p>
-                                    @enderror
+                                    <label for="password-confirm"
+                                        class="form-label">{{ __('Confirm Password') }}</label>
+
+                                    <input id="password-confirm" type="password" class="form-control"
+                                        name="password_confirmation" required placeholder="Masukkan Konfirmasi Password">
                                 </div>
+
                                 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                                    <a href="{{ route('barangmasuk.index') }}" class="btn btn-danger btn-icon-split">
+                                    <a href="{{ route('daftaruser.index') }}" class="btn btn-danger btn-icon-split">
                                         <span class="icon text-white-50">
                                             <i class="fas fa-arrow-left"></i>
                                         </span>
@@ -367,9 +376,10 @@
                                         <span class="icon text-white-50">
                                             <i class="fas fa-check"></i>
                                         </span>
-                                        <span class="text">Simpan</span>
+                                        <span class="text"> {{ __('Register') }}</span>
                                     </button>
                                 </div>
+
                             </form>
                         </div>
                     </div>

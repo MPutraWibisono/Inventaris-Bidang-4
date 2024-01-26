@@ -28,6 +28,13 @@ class BarangMasukController extends Controller
 
     public function store (Request $request)
     {
+        $request->validate([
+            'nama_barang' => ['required', 'max:255'],
+            'harga' => ['required', 'numeric'],
+            'stok' => ['required', 'numeric'],
+            'tanggal_masuk' => ['required', 'date'],
+        ]);
+
         $barang_masuk = BarangMasuk::create([
             'nama_barang' => $request->nama_barang,
             'harga'=> $request->harga,
@@ -44,6 +51,14 @@ class BarangMasukController extends Controller
 
     public function update(Request $request, $id){
         $barang_masuk = BarangMasuk::find($id);
+
+        $request->validate([
+            'nama_barang' => ['required', 'max:255'],
+            'harga' => ['required', 'numeric'],
+            'stok' => ['required', 'numeric'],
+            'tanggal_masuk' => ['required', 'date'],
+        ]);
+
         $barang_masuk->update([
             'nama_barang' => $request->nama_barang,
             'harga'=> $request->harga,

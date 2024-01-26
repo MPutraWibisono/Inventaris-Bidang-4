@@ -12,16 +12,16 @@
     <link rel="icon" type="image/x-icon" href="/img/logo diskominfo.png">
 
     <!-- Custom fonts for this template -->
-    <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link href="{{ asset('/css/sb-admin-2.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/sb-admin-2.min.css') }}" rel="stylesheet">
 
     <!-- Custom styles for this page -->
-    <link href="{{ asset('/vendor/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('vendor/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
 </head>
 
 <body id="page-top">
@@ -35,7 +35,7 @@
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="#">
                 <div class="sidebar-brand-icon rotate-n-15">
-                    <img class="img-profile rounded-circle" src="/img/logo diskominfo.png" alt="logo diskominfo"
+                    <img class="img-profile rounded-circle" src="img/logo diskominfo.png" alt="logo diskominfo"
                         style="max-width:6.229167vh">
                 </div>
                 <div class="sidebar-brand-text mx-3">Inventaris Bidang 4</div>
@@ -55,7 +55,7 @@
 
             @if (Auth::user()->hasRole('admin'))
                 <!-- Nav Item - Tables -->
-                <li class="nav-item active">
+                <li class="nav-item">
                     <a class="nav-link" href="{{ route('barangmasuk.index') }}">
                         <i class="fas fa-fw fa-table"></i>
                         <span>Barang Masuk</span></a>
@@ -70,7 +70,7 @@
 
             @if (Auth::user()->hasRole('admin'))
                 <!-- Nav Item - Tables -->
-                <li class="nav-item">
+                <li class="nav-item active">
                     <a class="nav-link" href="{{ route('daftaruser.index') }}">
                         <i class="fas fa-fw fa-address-book"></i>
                         <span>Daftar User</span></a>
@@ -307,70 +307,49 @@
 
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Edit Data Barang</h1>
+                        <h1 class="h3 mb-0 text-gray-800">Daftar User</h1>
+                        <a href="{{ route('daftaruser.create') }}" class="btn btn-success btn-icon-split btn-lg">
+                            <span class="icon text-white-50">
+                                <i class="fas fa-plus"></i>
+                            </span>
+                            <span class="text">Registrasi User</span>
+                        </a>
                     </div>
 
 
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-body">
-                            <form id="editbarang" action="{{ route('barangmasuk.update', $barangmasuk->id) }}"
-                                method="post" enctype="multipart/form-data">
-                                @csrf
-                                @method('PUT')
-                                <div class="mb-3">
-                                    <label for="nama_barang" class="form-label">Nama Barang</label>
-                                    <input type="text" name="nama_barang"
-                                        class="form-control @error('nama_barang') is-invalid @enderror"
-                                        id="nama_barang" placeholder="Masukkan Nama Barang"
-                                        value="{{ $barangmasuk->nama_barang }}">
-                                    @error('nama_barang')
-                                        <p class="form-text" style="color: red;">{{ $message }}</p>
-                                    @enderror
-                                </div>
-                                <div class="mb-3">
-                                    <label for="harga" class="form-label">Harga</label>
-                                    <input type="number" name="harga"
-                                        class="form-control @error('harga') is-invalid @enderror" id="harga"
-                                        placeholder="Masukkan Harga Barang" value="{{ $barangmasuk->harga }}">
-                                    @error('harga')
-                                        <p class="form-text" style="color: red;">{{ $message }}</p>
-                                    @enderror
-                                </div>
-                                <div class="mb-3">
-                                    <label for="stok" class="form-label">Stok</label>
-                                    <input type="number" name="stok"
-                                        class="form-control @error('stok') is-invalid @enderror" id="stok"
-                                        placeholder="Masukkan Banyak Stok Barang" value="{{ $barangmasuk->stok }}">
-                                    @error('stok')
-                                        <p class="form-text" style="color: red;">{{ $message }}</p>
-                                    @enderror
-                                </div>
-                                <div class="mb-3">
-                                    <label for="tanggal_masuk" class="form-label">Tanggal Barang Masuk</label>
-                                    <input type="date" name="tanggal_masuk"
-                                        class="form-control @error('tanggal_masuk') is-invalid @enderror"
-                                        id="tanggal_masuk" placeholder="Masukkan Tanggal Barang Masuk"
-                                        value="{{ $barangmasuk->tanggal_masuk }}">
-                                    @error('tanggal_masuk')
-                                        <p class="form-text" style="color: red;">{{ $message }}</p>
-                                    @enderror
-                                </div>
-                                <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                                    <a href="{{ route('barangmasuk.index') }}" class="btn btn-danger btn-icon-split">
-                                        <span class="icon text-white-50">
-                                            <i class="fas fa-arrow-left"></i>
-                                        </span>
-                                        <span class="text">Kembali</span>
-                                    </a>
-                                    <button type="submit" class="btn btn-success btn-icon-split">
-                                        <span class="icon text-white-50">
-                                            <i class="fas fa-check"></i>
-                                        </span>
-                                        <span class="text">Simpan</span>
-                                    </button>
-                                </div>
-                            </form>
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th>Nama</th>
+                                            <th>Email</th>
+                                            {{-- <th>Delete</th> --}}
+                                        </tr>
+                                    </thead>
+                                    <tfoot>
+                                        <tr>
+                                        </tr>
+                                    </tfoot>
+                                    <tbody>
+                                        @foreach ($daftaruser as $user)
+                                            <tr>
+                                                <td>{{ $user->name }}</td>
+                                                <td>{{ $user->email }}</td>
+                                                {{-- <form action="#"
+                                                    method="post" onsubmit="return confirm('Are you sure?')">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <td><input type="submit" value="Delete" class="btn btn-danger">
+                                                    </td>
+                                                </form> --}}
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
 
@@ -425,6 +404,12 @@
             </div>
         </div>
     </div>
+
+    <script>
+        document.getElementById('exportclick').addEventListener('click', function() {
+            document.getElementById('barangexport').submit();
+        });
+    </script>
 
     <!-- Bootstrap core JavaScript-->
     <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>

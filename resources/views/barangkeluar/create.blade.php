@@ -33,7 +33,7 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="#">
                 <div class="sidebar-brand-icon rotate-n-15">
                     <img class="img-profile rounded-circle" src="../img/logo diskominfo.png" alt="logo diskominfo"
                         style="max-width:6.229167vh">
@@ -45,14 +45,15 @@
             <hr class="sidebar-divider my-0">
 
             <!-- Nav Item - Dashboard -->
-            <li class="nav-item">
-                <a class="nav-link" href="{{ route('home') }}">
-                    <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>Dashboard</span></a>
-            </li>
+            @if (Auth::user()->hasRole('admin'))
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('home') }}">
+                        <i class="fas fa-fw fa-tachometer-alt"></i>
+                        <span>Dashboard</span></a>
+                </li>
+            @endif
 
-
-            @if (Auth::user()->email == 'admin@admin.com')
+            @if (Auth::user()->hasRole('admin'))
                 <!-- Nav Item - Tables -->
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('barangmasuk.index') }}">
@@ -60,11 +61,21 @@
                         <span>Barang Masuk</span></a>
                 </li>
             @endif
+
             <li class="nav-item active">
                 <a class="nav-link" href="{{ route('barangkeluar.index') }}">
                     <i class="fas fa-fw fa-chart-area"></i>
                     <span>Barang Keluar</span></a>
             </li>
+
+            @if (Auth::user()->hasRole('admin'))
+                <!-- Nav Item - Tables -->
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('daftaruser.index') }}">
+                        <i class="fas fa-fw fa-address-book"></i>
+                        <span>Daftar User</span></a>
+                </li>
+            @endif
 
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
@@ -278,7 +289,8 @@
                                     Activity Log
                                 </a> --}}
                                 {{-- <div class="dropdown-divider"></div> --}}
-                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                                <a class="dropdown-item" href="#" data-toggle="modal"
+                                    data-target="#logoutModal">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Logout
                                 </a>
@@ -302,58 +314,62 @@
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-body">
-                            <div class="table-responsive">
-                                <form id="ambilbarang" action="{{ route('barangkeluar.store') }}" method="post" enctype="multipart/form-data">
-                                    @csrf
-                                    <div class="mb-3">
-                                        <label for="nama_pengambil" class="form-label">Nama</label>
-                                        <input type="text" name="nama_pengambil" class="form-control @error('nama_pengambil') is-invalid @enderror" id="nama_pengambil"
-                                        placeholder="Masukkan Nama Anda">
-                                        @error('nama_pengambil')
-                                        <p class="form-text" style="color: red;">{{$message}}</p>
-                                        @enderror
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="barang_id" class="form-label">Nama Barang</label>
-                                        <select class="form-control" name="barang_id" aria-label="Default Select Example">
-                                            <option selected>Pilih Barang</option>
-                                            @foreach ($barangmasuk as $barang)
-                                            <option value="{{$barang->id}}">{{$barang->nama_barang}}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="jumlah_ambil" class="form-label">Jumlah Ambil</label>
-                                        <input type="number" name="jumlah_ambil" class="form-control @error('jumlah_ambil') is-invalid @enderror" id="jumlah_ambil"
-                                        placeholder="Masukkan Jumlah Barang yang Diambil">
-                                        @error('jumlah_ambil')
-                                        <p class="form-text" style="color: red;">{{$message}}</p>
-                                        @enderror
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="tanggal_keluar" class="form-label">Tanggal Barang Keluar</label>
-                                        <input type="date" name="tanggal_keluar" class="form-control @error('tanggal_keluar') is-invalid @enderror" id="tanggal_keluar"
-                                        placeholder="Masukkan Tanggal diambilnya Barang">
-                                        @error('tanggal_keluar')
-                                        <p class="form-text" style="color: red;">{{$message}}</p>
-                                        @enderror
-                                    </div>
-                                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                                        <a href="{{ route('barangmasuk.index') }}" class="btn btn-danger btn-icon-split">
-                                            <span class="icon text-white-50">
-                                                <i class="fas fa-arrow-left"></i>
-                                            </span>
-                                            <span class="text">Back</span>
-                                        </a>
-                                        <a id="exportclick" class="btn btn-success btn-icon-split">
-                                            <span class="icon text-white-50">
-                                                <i class="fas fa-check"></i>
-                                            </span>
-                                            <span class="text">Ambil</span>
-                                        </a>
-                                    </div>
-                                </form>
-                            </div>
+                            <form id="ambilbarang" action="{{ route('barangkeluar.store') }}" method="post"
+                                enctype="multipart/form-data">
+                                @csrf
+                                <div class="mb-3">
+                                    <label for="nama_pengambil" class="form-label">Nama</label>
+                                    <input type="text" name="nama_pengambil"
+                                        class="form-control @error('nama_pengambil') is-invalid @enderror"
+                                        id="nama_pengambil" required placeholder="Masukkan Nama Anda">
+                                    @error('nama_pengambil')
+                                        <p class="form-text" style="color: red;">{{ $message }}</p>
+                                    @enderror
+                                </div>
+                                <div class="mb-3">
+                                    <label for="barang_id" class="form-label">Nama Barang</label>
+                                    <select class="form-control" name="barang_id"
+                                        aria-label="Default Select Example">
+                                        <option selected>Pilih Barang</option>
+                                        @foreach ($barangmasuk as $barang)
+                                            <option value="{{ $barang->id }}">{{ $barang->nama_barang }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="jumlah_ambil" class="form-label">Jumlah Ambil</label>
+                                    <input type="number" name="jumlah_ambil"
+                                        class="form-control @error('jumlah_ambil') is-invalid @enderror"
+                                        id="jumlah_ambil" placeholder="Masukkan Jumlah Barang yang Diambil">
+                                    @error('jumlah_ambil')
+                                        <p class="form-text" style="color: red;">{{ $message }}</p>
+                                    @enderror
+                                </div>
+                                <div class="mb-3">
+                                    <label for="tanggal_keluar" class="form-label">Tanggal Barang Keluar</label>
+                                    <input type="date" name="tanggal_keluar"
+                                        class="form-control @error('tanggal_keluar') is-invalid @enderror"
+                                        id="tanggal_keluar" placeholder="Masukkan Tanggal diambilnya Barang">
+                                    @error('tanggal_keluar')
+                                        <p class="form-text" style="color: red;">{{ $message }}</p>
+                                    @enderror
+                                </div>
+                                <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                                    <a href="{{ route('barangmasuk.index') }}" class="btn btn-danger btn-icon-split">
+                                        <span class="icon text-white-50">
+                                            <i class="fas fa-arrow-left"></i>
+                                        </span>
+                                        <span class="text">Back</span>
+                                    </a>
+                                    <button type="submit" class="btn btn-success btn-icon-split">
+                                        <span class="icon text-white-50">
+                                            <i class="fas fa-check"></i>
+                                        </span>
+                                        <span class="text">Ambil</span>
+                                    </button>
+                                </div>
+                            </form>
                         </div>
                     </div>
 
@@ -408,12 +424,6 @@
             </div>
         </div>
     </div>
-
-    <script>
-        document.getElementById('exportclick').addEventListener('click', function () {
-            document.getElementById('ambilbarang').submit();
-        });
-    </script>
 
     <!-- Bootstrap core JavaScript-->
     <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
