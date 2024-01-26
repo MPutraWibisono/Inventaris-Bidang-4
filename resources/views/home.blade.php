@@ -481,8 +481,8 @@
                                                 </span>
 
                                                 @if ($loop->iteration == 3)
-                                                    @break
-                                                @endif
+                                                @break
+                                            @endif
                                         @endforeach
                                     </div>
                                 </div>

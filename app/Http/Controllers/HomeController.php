@@ -24,11 +24,6 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-     
-    public function getWarna($index){
-        $warna = ['primary', 'success', 'info'];
-        return $warna[$index % count($warna)];
-    }
 
     public function index()
     {
@@ -48,7 +43,15 @@ class HomeController extends Controller
         $barangkeluar30hari = BarangKeluar::whereBetween('tanggal_keluar', [$start_date, $end_date])->get();
         $total30hari = $barangmasuk30hari->count() + $barangkeluar30hari->count();
 
-        return view('home', compact('total30hari', 'barangmasuktotal', 'barangkeluartotal', 'totalbarangmasukkeluar'), ['barangmasuk' => $barangmasuk, 'barangkeluar' => $barangkeluar, 'daftaruser' => $daftaruser]);
+        return view('home', [
+            'barangmasuk' => $barangmasuk,
+            'barangkeluar' => $barangkeluar,
+            'daftaruser' => $daftaruser,
+            'total30hari' => $total30hari,
+            'barangmasuktotal' => $barangmasuktotal,
+            'barangkeluartotal' => $barangkeluartotal,
+            'totalbarangmasukkeluar' => $totalbarangmasukkeluar
+        ]);
     }
 
 }

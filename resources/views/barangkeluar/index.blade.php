@@ -308,7 +308,11 @@
 
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Data Barang Keluar</h1>
+                        @if (Auth::user()->hasRole('user'))
+                            <h1 class="h3 mb-0 text-gray-800">Data Barang</h1>
+                        @else
+                            <h1 class="h3 mb-0 text-gray-800">Data Barang Keluar</h1>
+                        @endif
                         <a href="{{ route('barangkeluar.create') }}" class="btn btn-success btn-icon-split btn-lg">
                             <span class="icon text-white-50">
                                 <i class="fas fa-plus"></i>
@@ -320,34 +324,66 @@
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                    <thead>
-                                        <tr>
-                                            <th>Nama Pengambil</th>
-                                            <th>Nama Barang</th>
-                                            <th>Jumlah Ambil</th>
-                                            <th>Tanggal Keluar</th>
-                                        </tr>
-                                    </thead>
-                                    <tfoot>
-                                        <tr>
-                                        </tr>
-                                    </tfoot>
-                                    <tbody>
-                                        @foreach ($barangkeluar as $barang)
-                                            @csrf
-                                            @method('DELETE')
+                            @if (Auth::user()->hasRole('user'))
+
+                                <div class="table-responsive">
+                                    <table class="table table-bordered" id="dataTable" width="100%"
+                                        cellspacing="0">
+                                        <thead>
                                             <tr>
-                                                <td>{{ $barang->nama_pengambil }}</td>
-                                                <td>{{ $barang->barang_id }}</td>
-                                                <td>{{ $barang->jumlah_ambil }}</td>
-                                                <td>{{ $barang->tanggal_keluar }}</td>
+                                                <th>Nama Barang</th>
+                                                <th>Harga</th>
+                                                <th>Stok</th>
+                                                <th>Tanggal Masuk</th>
                                             </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
-                            </div>
+                                        </thead>
+                                        <tfoot>
+                                            <tr>
+                                            </tr>
+                                        </tfoot>
+                                        <tbody>
+                                            @foreach ($barangmasuk as $barang)
+                                                <tr>
+                                                    <td>{{ $barang->nama_barang }}</td>
+                                                    <td>{{ $barang->harga }}</td>
+                                                    <td>{{ $barang->stok }}</td>
+                                                    <td>{{ $barang->tanggal_masuk }}</td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+                            @else
+                                <div class="table-responsive">
+                                    <table class="table table-bordered" id="dataTable" width="100%"
+                                        cellspacing="0">
+                                        <thead>
+                                            <tr>
+                                                <th>Nama Pengambil</th>
+                                                <th>Nama Barang</th>
+                                                <th>Jumlah Ambil</th>
+                                                <th>Tanggal Keluar</th>
+                                            </tr>
+                                        </thead>
+                                        <tfoot>
+                                            <tr>
+                                            </tr>
+                                        </tfoot>
+                                        <tbody>
+                                            @foreach ($barangkeluar as $barang)
+                                                @csrf
+                                                @method('DELETE')
+                                                <tr>
+                                                    <td>{{ $barang->nama_pengambil }}</td>
+                                                    <td>{{ $barang->barang_id }}</td>
+                                                    <td>{{ $barang->jumlah_ambil }}</td>
+                                                    <td>{{ $barang->tanggal_keluar }}</td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+                            @endif
                         </div>
                     </div>
 

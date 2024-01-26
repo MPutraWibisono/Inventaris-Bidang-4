@@ -356,7 +356,7 @@
                                     @enderror
                                 </div>
                                 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                                    <a href="{{ route('barangmasuk.index') }}" class="btn btn-danger btn-icon-split">
+                                    <a href="{{ route('barangkeluar.index') }}" class="btn btn-danger btn-icon-split">
                                         <span class="icon text-white-50">
                                             <i class="fas fa-arrow-left"></i>
                                         </span>
