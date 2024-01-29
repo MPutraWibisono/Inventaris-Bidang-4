@@ -321,7 +321,7 @@
                                     <label for="nama_pengambil" class="form-label">Nama</label>
                                     <input type="text" name="nama_pengambil"
                                         class="form-control @error('nama_pengambil') is-invalid @enderror"
-                                        id="nama_pengambil" required value="{{ Auth::user()->name }}" disabled>
+                                        id="nama_pengambil" required value="{{ Auth::user()->name }}" readonly>
                                     @error('nama_pengambil')
                                         <p class="form-text" style="color: red;">{{ $message }}</p>
                                     @enderror

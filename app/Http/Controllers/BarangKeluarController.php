@@ -6,6 +6,7 @@ use App\Models\BarangMasuk;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use App\Models\BarangKeluar;
+use Illuminate\Support\Facades\Auth;
 
 class BarangKeluarController extends Controller
 {
@@ -24,12 +25,13 @@ class BarangKeluarController extends Controller
 
     public function store(Request $request)
     {
+        $username = Auth::user()->name;
+
         if(($request->jumlah_ambil) == 0){
             return back()->withErrors(['jumlah_ambil' => 'Stok tidak bisa kosong']);
         }
 
         $request->validate([
-            'nama_pengambil' => ['required', 'max:255'],
             'barang_id' => ['required'],
             'jumlah_ambil' => ['required', 'numeric'],
             'tanggal_keluar' => ['required', 'date'],
@@ -48,7 +50,7 @@ class BarangKeluarController extends Controller
                 ]);
 
                 $barang_keluar = BarangKeluar::create([
-                    'nama_pengambil' => $request->nama_pengambil,
+                    'nama_pengambil' => $username,
                     'barang_id' => $request->barang_id,
                     'jumlah_ambil' => $request->jumlah_ambil,
                     'tanggal_keluar' => $request->tanggal_keluar,
@@ -61,14 +63,5 @@ class BarangKeluarController extends Controller
         } else {
             return back()->withErrors(['barang_id' => 'Invalid barang_id.']);
         }
-
-        $barang_keluar = BarangKeluar::create([
-            'nama_pengambil' => $request->nama_pengambil,
-            'barang_id' => $request->barang_id,
-            'jumlah_ambil' => $request->jumlah_ambil,
-            'tanggal_keluar' => $request->tanggal_keluar,
-        ]);
-
-        return redirect()->route('barangkeluar.index');
     }
 }

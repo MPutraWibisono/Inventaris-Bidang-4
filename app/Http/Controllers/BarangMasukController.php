@@ -27,7 +27,7 @@ class BarangMasukController extends Controller
     }
 
     public function store (Request $request)
-    {
+    {   
         if(($request->stok) == 0){
             return back()->withErrors(['stok' => 'Stok tidak bisa kosong']);
         }
