@@ -28,6 +28,10 @@ class BarangMasukController extends Controller
 
     public function store (Request $request)
     {
+        if(($request->stok) == 0){
+            return back()->withErrors(['stok' => 'Stok tidak bisa kosong']);
+        }
+
         $request->validate([
             'nama_barang' => ['required', 'max:255'],
             'harga' => ['required', 'numeric'],
@@ -50,6 +54,10 @@ class BarangMasukController extends Controller
     }
 
     public function update(Request $request, $id){
+        if(($request->stok) == 0){
+            return back()->withErrors(['stok' => 'Stok tidak bisa kosong']);
+        }
+
         $barang_masuk = BarangMasuk::find($id);
 
         $request->validate([

@@ -24,6 +24,10 @@ class BarangKeluarController extends Controller
 
     public function store(Request $request)
     {
+        if(($request->jumlah_ambil) == 0){
+            return back()->withErrors(['jumlah_ambil' => 'Stok tidak bisa kosong']);
+        }
+
         $request->validate([
             'nama_pengambil' => ['required', 'max:255'],
             'barang_id' => ['required'],
@@ -36,7 +40,6 @@ class BarangKeluarController extends Controller
         if ($id_barang_masuk) {
             $stok_barang = $id_barang_masuk->stok;
 
-            // Validate if there's enough stock to perform the withdrawal
             if ($stok_barang >= $request->jumlah_ambil) {
                 $stok_updated = $stok_barang - $request->jumlah_ambil;
 
@@ -53,11 +56,9 @@ class BarangKeluarController extends Controller
 
                 return redirect()->route('barangkeluar.index');
             } else {
-                // Handle the case where there's not enough stock
-                return back()->withErrors(['jumlah_ambil' => 'Not enough stock available.']);
+                return back()->withErrors(['jumlah_ambil' => 'Stok tidak valid']);
             }
         } else {
-            // Handle the case where the specified "barang_id" is not found
             return back()->withErrors(['barang_id' => 'Invalid barang_id.']);
         }
 
