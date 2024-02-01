@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -14,7 +13,8 @@ return new class extends Migration
         Schema::create('barang_keluar', function (Blueprint $table) {
             $table->id();
             $table->string('nama_pengambil');
-            $table->bigInteger('barang_id');
+            $table->bigInteger('barang_id')->unsigned();
+            $table->foreign('barang_id')->references('id')->on('barang_masuk')->onDelete('cascade');
             $table->bigInteger('jumlah_ambil');
             $table->date('tanggal_keluar');
             $table->timestamps();

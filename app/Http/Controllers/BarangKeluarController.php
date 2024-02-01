@@ -28,7 +28,7 @@ class BarangKeluarController extends Controller
         $username = Auth::user()->name;
 
         if(($request->jumlah_ambil) == 0){
-            return back()->withErrors(['jumlah_ambil' => 'Stok tidak bisa kosong']);
+            return back()->withErrors(['jumlah_ambil' => 'Jumlah ambil tidak bisa kosong']);
         }
 
         $request->validate([

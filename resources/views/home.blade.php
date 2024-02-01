@@ -415,44 +415,14 @@
                                 <div class="card shadow mb-4">
                                     <!-- Card Header - Dropdown -->
                                     <div class="card-header py-3">
-                                        <h6 class="m-0 font-weight-bold text-primary">Tabel User</h6>
+                                        <h6 class="m-0 font-weight-bold text-primary">Grafik Per Bulan</h6>
                                     </div>
                                     <!-- Card Body -->
                                     <div class="card-body">
-                                        {{-- <div class="chart-area">
+                                        <div class="chart-area">
                                             <canvas id="myAreaChart"></canvas>
-                                        </div> --}}
-                                        <div class="table-responsive">
-                                            <table class="table table-bordered" id="dataTable" width="100%"
-                                                cellspacing="0">
-                                                <thead>
-                                                    <tr>
-                                                        <th>Nama</th>
-                                                        <th>Email</th>
-                                                        {{-- <th>Delete</th> --}}
-                                                    </tr>
-                                                </thead>
-                                                <tfoot>
-                                                    <tr>
-                                                    </tr>
-                                                </tfoot>
-                                                <tbody>
-                                                    @foreach ($daftaruser as $user)
-                                                        <tr>
-                                                            <td>{{ $user->name }}</td>
-                                                            <td>{{ $user->email }}</td>
-                                                            {{-- <form action="#"
-                                                                method="post" onsubmit="return confirm('Are you sure?')">
-                                                                @csrf
-                                                                @method('DELETE')
-                                                                <td><input type="submit" value="Delete" class="btn btn-danger">
-                                                                </td>
-                                                            </form> --}}
-                                                        </tr>
-                                                    @endforeach
-                                                </tbody>
-                                            </table>
                                         </div>
+
                                     </div>
                                 </div>
                             </div>
@@ -470,14 +440,17 @@
                                             <canvas id="myPieChart"></canvas>
                                         </div>
                                         <div class="mt-4 text-center small">
-                                            @foreach ($barangmasuk as $barang)
+                                            @php
+                                                $warna = ['info', 'success', 'primary'];
+                                                $tigabarangterakhir = $barangmasuk->slice(-3)->reverse()->toArray();
+                                            @endphp
+                                            @foreach ($tigabarangterakhir as $barang)
                                                 @php
-                                                    $warna = ['primary', 'success', 'info'];
                                                     $index = $loop->index % count($warna);
                                                 @endphp
                                                 <span class="mr-2">
                                                     <i class="fas fa-circle text-{{ $warna[$index] }}"></i>
-                                                    {{ $barang->nama_barang }}
+                                                    {{ $barang['nama_barang'] }}
                                                 </span>
 
                                                 @if ($loop->iteration == 3)
@@ -563,6 +536,45 @@
                         </div>
                     </div>
 
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">Tabel Daftar User</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="dataTable" width="100%"
+                                    cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th>Nama</th>
+                                            <th>Email</th>
+                                            {{-- <th>Delete</th> --}}
+                                        </tr>
+                                    </thead>
+                                    <tfoot>
+                                        <tr>
+                                        </tr>
+                                    </tfoot>
+                                    <tbody>
+                                        @foreach ($daftaruser as $user)
+                                            <tr>
+                                                <td>{{ $user->name }}</td>
+                                                <td>{{ $user->email }}</td>
+                                                {{-- <form action="#"
+                                                    method="post" onsubmit="return confirm('Are you sure?')">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <td><input type="submit" value="Delete" class="btn btn-danger">
+                                                    </td>
+                                                </form> --}}
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
                 <!-- /.container-fluid -->
 
@@ -616,6 +628,8 @@
     </div>
 
     <div id="chartData" data-chartdata="{{ json_encode($barangmasuk) }}"></div>
+
+    <div id="chartArea" data-chartdata="{{ json_encode($barangmasuktiapbulan) }}"></div>
 
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>

@@ -1,12 +1,10 @@
-// Set new default font family and font color to mimic Bootstrap's default styling
-
 document.addEventListener('DOMContentLoaded', function () {
   var chartDataElement = document.getElementById('chartData');
   var chartData = JSON.parse(chartDataElement.getAttribute('data-chartdata'));
   
   var ctx = document.getElementById("myPieChart");
 
-  var datapotong = chartData.slice(0,3);
+  var datapotong = chartData.slice(-3);
 
   var myPieChart = new Chart(ctx, {
     type: 'doughnut',
