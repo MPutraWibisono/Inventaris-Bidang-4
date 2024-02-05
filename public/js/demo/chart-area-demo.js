@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', function () {
     data: { 
       labels: Object.keys(chartData),
       datasets: [{
-        label: "Barang Masuk",
+        label: "Barang Masuk ",
         lineTension: 0.3,
         backgroundColor: "rgba(78, 115, 223, 0.05)",
         borderColor: "rgba(78, 115, 223, 1)",
