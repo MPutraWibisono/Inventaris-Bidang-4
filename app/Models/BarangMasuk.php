@@ -11,7 +11,15 @@ class BarangMasuk extends Model
     protected $table ='barang_masuk';
     protected $guarded = [];
 
-    public function barang_masuk(){
-        return $this->hasMany(BarangKeluar::class);
+    public function barang(){
+        return $this->belongsTo(Barang::class,'barang_id');
+    }
+
+    public function barang_keluar(){
+        return $this->hasMany(BarangKeluar::class,'barang_id');
+    }
+
+    public function kategori(){
+        return $this->belongsTo(Kategori::class,'kategori_id');
     }
 }

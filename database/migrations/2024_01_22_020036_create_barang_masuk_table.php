@@ -13,10 +13,27 @@ return new class extends Migration
     {
         Schema::create('barang_masuk', function (Blueprint $table) {
             $table->id();
-            $table->string('nama_barang');
-            $table->bigInteger('harga');    
-            $table->bigInteger('stok');
+            // $table->string('kode_barang');
+            $table->string('reg');    
+            $table->string('nama_jenis_barang');
+            $table->string('merek_tipe_barang');
+            $table->string('no_pabrik');
+            $table->string('bahan');
+            $table->string('perolehan_barang');
+            $table->integer('tahun_pembelian');
+            $table->string('ukuran_barang');
+            $table->string('satuan');
+            $table->string('keadaan_barang');
+            // $table->integer('banyak_barang');
+            $table->bigInteger('harga_satuan_barang');
+            $table->bigInteger('jumlah_harga_barang');
+            $table->integer('kode_ruangan'); 
             $table->date('tanggal_masuk');
+            $table->string('foto_barang'); 
+            $table->unsignedBigInteger('kategori_barang');
+            $table->foreign('kategori_barang')->references('id')->on('kategori')->onDelete('cascade');
+            $table->unsignedBigInteger('id_barang');
+            $table->foreign('id_barang')->references('id')->on('barang')->onDelete('cascade'); 
             $table->timestamps();
         });
     }

@@ -13,7 +13,7 @@ class BarangKeluarController extends Controller
     public function index()
     {   
         $barang_masuk = BarangMasuk::all(); 
-        $barang_keluar = BarangKeluar::with('barangmasuk')->get();
+        $barang_keluar = BarangKeluar::with('barang_keluar')->get();
         return view('barangkeluar.index', ['barangkeluar' => $barang_keluar, 'barangmasuk' => $barang_masuk]);
     }
 
