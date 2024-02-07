@@ -4,10 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Exports\BarangMasukExport;
 use App\Models\Barang;
+use App\Models\Kategori;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use App\Models\BarangMasuk;
 use Maatwebsite\Excel\Facades\Excel;
+
 
 class BarangMasukController extends Controller
 {
@@ -25,7 +27,8 @@ class BarangMasukController extends Controller
 
     public function create ()
     {
-        return view('barangmasuk.create');
+        $kategori = Kategori::all();
+        return view('barangmasuk.create', ['kategori' => $kategori]);
     }
 
     public function store (Request $request)
